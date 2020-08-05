@@ -1,7 +1,7 @@
 package com.alex.prediction.services;
 
 
-import com.alex.prediction.domain.Assist;
+import com.alex.prediction.models.Assist;
 import com.alex.prediction.repository.AssistRepository;
 import org.springframework.stereotype.Service;
 

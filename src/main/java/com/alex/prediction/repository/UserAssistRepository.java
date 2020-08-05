@@ -1,7 +1,7 @@
 package com.alex.prediction.repository;
 
-import com.alex.prediction.domain.User;
-import com.alex.prediction.domain.UserAssist;
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserAssist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,13 +1,12 @@
-package com.alex.prediction.domain;
+package com.alex.prediction.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "userscorers")
-public class UserScorer implements Serializable {
+@Table(name = "userassists")
+public class UserAssist {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "position")
     private int position;
@@ -20,25 +19,22 @@ public class UserScorer implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    public UserScorer() {
-    }
+    public UserAssist(){}
 
-    public UserScorer(int position, String nameOfPlayer, String season, User user) {
+    public UserAssist(int position, String nameOfPlayer, String season, User user) {
         this.position = position;
         this.nameOfPlayer = nameOfPlayer;
-        this.user = user;
         this.season = season;
+        this.user = user;
     }
-
-    public String getNameOfPlayer() {
-        return nameOfPlayer;
-    }
-
 
     public int getPosition() {
         return position;
     }
 
+    public String getNameOfPlayer() {
+        return nameOfPlayer;
+    }
 
     public String getSeason() {
         return season;

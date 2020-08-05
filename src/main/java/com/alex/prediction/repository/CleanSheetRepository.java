@@ -1,6 +1,6 @@
 package com.alex.prediction.repository;
 
-import com.alex.prediction.domain.CleanSheet;
+import com.alex.prediction.models.CleanSheet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

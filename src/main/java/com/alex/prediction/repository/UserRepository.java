@@ -1,11 +1,16 @@
 package com.alex.prediction.repository;
 
-import com.alex.prediction.domain.User;
-import org.springframework.data.repository.CrudRepository;
+import com.alex.prediction.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByStandingsId(int standingsId);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 
-    User findByName(String name);
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmail(String email);
 }

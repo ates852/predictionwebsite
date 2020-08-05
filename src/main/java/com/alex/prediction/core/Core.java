@@ -1,6 +1,6 @@
 package com.alex.prediction.core;
 
-import com.alex.prediction.domain.*;
+import com.alex.prediction.models.*;
 
 import java.util.List;
 

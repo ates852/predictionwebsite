@@ -1,4 +1,4 @@
-package com.alex.prediction.domain;
+package com.alex.prediction.models;
 
 import javax.persistence.*;
 

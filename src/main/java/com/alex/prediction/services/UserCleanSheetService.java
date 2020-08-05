@@ -1,9 +1,8 @@
 package com.alex.prediction.services;
 
 
-import com.alex.prediction.domain.User;
-import com.alex.prediction.domain.UserAssist;
-import com.alex.prediction.domain.UserCleanSheet;
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserCleanSheet;
 import com.alex.prediction.repository.UserCleanSheetRepository;
 import org.springframework.stereotype.Service;
 

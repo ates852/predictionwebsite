@@ -1,6 +1,6 @@
 package com.alex.prediction.controller;
 
-import com.alex.prediction.domain.Team;
+import com.alex.prediction.models.Team;
 import com.alex.prediction.services.TeamService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

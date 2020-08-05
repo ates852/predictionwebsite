@@ -1,6 +1,6 @@
 package com.alex.prediction.repository;
 
-import com.alex.prediction.domain.Team;
+import com.alex.prediction.models.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

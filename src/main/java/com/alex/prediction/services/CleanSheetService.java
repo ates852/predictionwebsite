@@ -1,6 +1,6 @@
 package com.alex.prediction.services;
 
-import com.alex.prediction.domain.CleanSheet;
+import com.alex.prediction.models.CleanSheet;
 import com.alex.prediction.repository.CleanSheetRepository;
 import org.springframework.stereotype.Service;
 

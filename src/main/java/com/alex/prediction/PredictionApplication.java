@@ -1,22 +1,11 @@
 package com.alex.prediction;
 
-import com.alex.prediction.core.Core;
-import com.alex.prediction.domain.*;
 import com.alex.prediction.services.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 
 @SpringBootApplication
@@ -36,13 +25,15 @@ public class PredictionApplication {
                              AssistService assistService,
                              ScorerService scorerService,
                              TeamService teamService,
-                             UserService userService,
                              UserTeamService userTeamService,
                              UserScorerService userScorerService,
                              UserCleanSheetService userCleanSheetService,
                              UserAssistService userAssistService
     ) {
         return args -> {
+
+//            userService.saveUser(new User("Alex","nieco"));
+//            System.out.println(userTeamService.list(userService.findUserByName("Alex")));
 //             read JSON and load json
 //                      ObjectMapper mapper = new ObjectMapper();
 //            TypeReference<List<Team>> typeReference = new TypeReference<List<Team>>() {

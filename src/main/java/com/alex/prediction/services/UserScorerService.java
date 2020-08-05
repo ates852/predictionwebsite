@@ -1,8 +1,7 @@
 package com.alex.prediction.services;
 
-import com.alex.prediction.domain.User;
-import com.alex.prediction.domain.UserAssist;
-import com.alex.prediction.domain.UserScorer;
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserScorer;
 import com.alex.prediction.repository.UserScorerRepository;
 import org.springframework.stereotype.Service;
 

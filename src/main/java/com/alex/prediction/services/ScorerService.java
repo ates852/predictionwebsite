@@ -1,6 +1,6 @@
 package com.alex.prediction.services;
 
-import com.alex.prediction.domain.Scorer;
+import com.alex.prediction.models.Scorer;
 import com.alex.prediction.repository.ScorerRepository;
 import org.springframework.stereotype.Service;
 

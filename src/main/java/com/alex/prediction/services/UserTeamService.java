@@ -1,7 +1,7 @@
 package com.alex.prediction.services;
 
-import com.alex.prediction.domain.User;
-import com.alex.prediction.domain.UserTeam;
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserTeam;
 import com.alex.prediction.repository.UserTeamRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,14 @@ public class UserTeamService {
         userTeamRepository.deleteAll();
     }
 
-    public List<UserTeam> getList(User user){
-        return userTeamRepository.findByUserOrderByPosition(user);
-    }
+//    public List<UserTeam> getList(User user){
+//        return userTeamRepository.findByUserOrderByPosition(user);
+//    }
 
     public  Iterable<UserTeam> list(User user){
         return userTeamRepository.findByUserOrderByPosition(user);
     }
+
 
     public String getNameOfTeam(int position, User user) {
         String nameOfTeam = userTeamRepository.findByPositionAndUser(position, user).getNameOfTeam();

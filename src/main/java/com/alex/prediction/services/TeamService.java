@@ -1,6 +1,6 @@
 package com.alex.prediction.services;
 
-import com.alex.prediction.domain.Team;
+import com.alex.prediction.models.Team;
 import com.alex.prediction.repository.TeamRepository;
 import org.springframework.stereotype.Service;
 
