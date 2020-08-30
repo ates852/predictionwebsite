@@ -1,11 +1,16 @@
 package com.alex.prediction;
 
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserTeam;
+import com.alex.prediction.repository.UserRepository;
 import com.alex.prediction.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -26,6 +31,7 @@ public class PredictionApplication {
                              ScorerService scorerService,
                              TeamService teamService,
                              UserTeamService userTeamService,
+                             UserRepository userRepository,
                              UserScorerService userScorerService,
                              UserCleanSheetService userCleanSheetService,
                              UserAssistService userAssistService
@@ -96,7 +102,14 @@ public class PredictionApplication {
 //            }
 
 //
-//            User alex = userService.findUserById(1);
+//            User alex = userRepository.findByUsername("alex");
+//            System.out.println(alex.getEmail());
+//            System.out.println(alex.getPassword());
+//            System.out.println(alex.getUsername());
+
+//            UserTeam userTeam = new UserTeam(1,"Liverpool FC",alex);
+//            userTeamService.saveTeam(userTeam);
+
 //            User haglo = userService.findUserById(2);
 //            User jakub = userService.findUserById(3);
 //            User peto = userService.findUserById(4);

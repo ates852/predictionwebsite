@@ -1,31 +1,58 @@
-//package com.alex.prediction.controller;
-//
-//import com.alex.prediction.models.UserTeam;
-//import com.alex.prediction.services.UserService;
-//import com.alex.prediction.services.UserTeamService;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequestMapping("/userTeams")
-//public class UserTeamController {
-//    private UserTeamService userTeamService;
-//    private UserService userService;
-//
-//    public UserTeamController(UserTeamService userTeamService, UserService userService) {
-//        this.userTeamService = userTeamService;
-//        this.userService = userService;
-//    }
-//
-//    //Get users team standings
-//    @CrossOrigin
-//    @GetMapping("/list/{name}")
-//    public Iterable<UserTeam> list(@PathVariable String name) {
-//        return userTeamService.list(userService.findUserByName(name));
-//    }
-//
-//    @CrossOrigin
-//    @PostMapping("/saveTeam")
-//    public UserTeam saveTeam (@RequestBody UserTeam userTeam){
-//        return userTeamService.saveTeam(userTeam);
-//    }
-//}
+package com.alex.prediction.controller;
+
+import com.alex.prediction.models.User;
+import com.alex.prediction.models.UserTeam;
+
+import com.alex.prediction.repository.UserRepository;
+import com.alex.prediction.services.UserTeamService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/api/userTeams")
+public class UserTeamController {
+    @Autowired
+    private UserTeamService userTeamService;
+    @Autowired
+    private UserRepository userRepository;
+
+    //Get users team standings
+    @GetMapping("/list/{name}")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    public Iterable<UserTeam> list(@PathVariable String name) {
+        return userTeamService.getList(userRepository.findByUsername(name));
+    }
+
+    @PostMapping("/saveTeam")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    public ResponseEntity<UserTeam> addTeam(@RequestBody UserTeam userTeam) {
+        UserTeam userTeam1 = userTeamService.saveTeam(userTeam);
+        return new ResponseEntity<>(userTeam1, HttpStatus.OK);
+    }
+
+    @PostMapping("/saveTeams")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    public ResponseEntity<List<UserTeam>> addTeams(@RequestBody List<UserTeam> userTeams) {
+        List<UserTeam> userTeams1 = userTeamService.saveList(userTeams);
+        return new ResponseEntity<>(userTeams1, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    @DeleteMapping("/deleteTeams")
+    public void deleteTeams(@RequestBody User user) {
+        userTeamService.deleteList(user);
+    }
+
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    @DeleteMapping("/deleteTeam")
+    public void deleteTeam(@RequestBody UserTeam userTeam) {
+        userTeamService.deleteTeam(userTeam);
+    }
+
+}
