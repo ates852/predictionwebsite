@@ -23,10 +23,10 @@ public class UserTeamController {
     private UserRepository userRepository;
 
     //Get users team standings
-    @GetMapping("/list/{name}")
+    @GetMapping("/list/{name}/{season}")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public Iterable<UserTeam> list(@PathVariable String name) {
-        return userTeamService.getList(userRepository.findByUsername(name));
+    public Iterable<UserTeam> list(@PathVariable String name,@PathVariable String season) {
+        return userTeamService.getList(userRepository.findByUsername(name),season);
     }
 
     @PostMapping("/saveTeam")
@@ -44,9 +44,9 @@ public class UserTeamController {
     }
 
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    @DeleteMapping("/deleteTeams")
-    public void deleteTeams(@RequestBody User user) {
-        userTeamService.deleteList(user);
+    @DeleteMapping("/deleteTeams/{season}")
+    public void deleteTeams(@RequestBody User user,@PathVariable String season) {
+        userTeamService.deleteListOfTeams(user,season);
     }
 
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")

@@ -11,12 +11,14 @@ import java.io.Serializable;
 public class UserTeam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "position")
     private int position;
     @Column(name = "name_of_team")
     private String nameOfTeam;
+    @Column(name = "season")
+    private String season;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(foreignKey = @ForeignKey(name = "user_id"),name = "user_id")
@@ -61,5 +63,13 @@ public class UserTeam implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
     }
 }

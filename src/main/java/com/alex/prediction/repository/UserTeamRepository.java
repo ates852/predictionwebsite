@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserTeamRepository extends JpaRepository<UserTeam, Long> {
-    UserTeam findByPositionAndUser(int position, User user);
+//    UserTeam findByPositionAndUser(int position, User user);
 
-    UserTeam findByNameOfTeamAndUser(String nameOfTeam, User user);
+    UserTeam findByNameOfTeamAndSeasonAndUser(String nameOfTeam,String season, User user);
 
-    Boolean existsByNameOfTeamAndUser(String nameOfTeam, User user);
+    Boolean existsByNameOfTeamAndSeasonAndUser(String nameOfTeam,String season, User user);
 
-    Iterable<UserTeam> findByUserOrderByPosition(User user);
+    Iterable<UserTeam> findByUserAndSeason(User user , String season);
 }

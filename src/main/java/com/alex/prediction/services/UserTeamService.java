@@ -26,8 +26,8 @@ public class UserTeamService {
             return null;
         }
         //Load user from database and save Users team
-        if (userTeamRepository.existsByNameOfTeamAndUser(userTeam.getNameOfTeam(), user)) {
-            UserTeam userTeamToUpdate = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndUser(userTeam.getNameOfTeam(),user).getId());
+        if (userTeamRepository.existsByNameOfTeamAndSeasonAndUser(userTeam.getNameOfTeam(),userTeam.getSeason(), user)) {
+            UserTeam userTeamToUpdate = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndSeasonAndUser(userTeam.getNameOfTeam(),userTeam.getSeason(),user).getId());
             userTeamToUpdate.setPosition(userTeam.getPosition());
             userTeamToUpdate.setUser(user);
             return userTeamRepository.save(userTeamToUpdate);
@@ -51,9 +51,9 @@ public class UserTeamService {
             }
             //Load user from database and save Users team
             //If users team already exist then we just update team
-            if (userTeamRepository.existsByNameOfTeamAndUser(team.getNameOfTeam(), user)) {
+            if (userTeamRepository.existsByNameOfTeamAndSeasonAndUser(team.getNameOfTeam(),team.getSeason(), user)) {
                 //Updating users team
-                UserTeam userTeamToUpdate = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndUser(team.getNameOfTeam(),user).getId());
+                UserTeam userTeamToUpdate = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndSeasonAndUser(team.getNameOfTeam(),team.getSeason(),user).getId());
                 userTeamToUpdate.setPosition(team.getPosition());
                 userTeamToUpdate.setUser(user);
                 userTeamRepository.save(userTeamToUpdate);
@@ -66,8 +66,8 @@ public class UserTeamService {
         return userTeams;
     }
 
-    public void deleteList(User user) {
-        Iterable<UserTeam> userTeamToDelete = userTeamRepository.findByUserOrderByPosition(userRepository.findByUsername(user.getUsername()));
+    public void deleteListOfTeams(User user,String season) {
+        Iterable<UserTeam> userTeamToDelete = userTeamRepository.findByUserAndSeason(userRepository.findByUsername(user.getUsername()),season);
         userTeamRepository.deleteAll(userTeamToDelete);
     }
 
@@ -76,12 +76,12 @@ public class UserTeamService {
         if (user == null) {
             return ;
         }
-        UserTeam userTeamToDelete = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndUser(userTeam.getNameOfTeam(),user).getId());
+        UserTeam userTeamToDelete = userTeamRepository.getOne(userTeamRepository.findByNameOfTeamAndSeasonAndUser(userTeam.getNameOfTeam(),userTeam.getSeason(),user).getId());
         userTeamRepository.delete(userTeamToDelete);
     }
 
-    public Iterable<UserTeam> getList(User user) {
-        return userTeamRepository.findByUserOrderByPosition(user);
+    public Iterable<UserTeam> getList(User user,String season) {
+        return userTeamRepository.findByUserAndSeason(user,season);
     }
 
 }
