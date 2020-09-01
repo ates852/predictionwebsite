@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface UserScorerRepository extends JpaRepository<UserScorer, Long> {
-    UserScorer findByPositionAndUser(int position, User user);
+    UserScorer findByPositionAndSeasonAndUser(int position, String season, User user);
 
-    UserScorer findByNameOfPlayerAndUser(String nameOfPlayer, User user);
+    UserScorer findByNameOfPlayerAndSeasonAndUser(String nameOfPlayer, String season, User user);
 
-    List<UserScorer> findByUserOrderByPosition(User user);
+    Boolean existsByNameOfPlayerAndSeasonAndUser(String nameOfPlayer, String season, User user);
+
+    Iterable<UserScorer> findByUserAndSeasonOrderByPosition(User user,String season);
 }

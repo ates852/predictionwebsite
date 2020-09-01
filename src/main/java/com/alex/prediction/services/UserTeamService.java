@@ -67,7 +67,7 @@ public class UserTeamService {
     }
 
     public void deleteListOfTeams(User user,String season) {
-        Iterable<UserTeam> userTeamToDelete = userTeamRepository.findByUserAndSeason(userRepository.findByUsername(user.getUsername()),season);
+        Iterable<UserTeam> userTeamToDelete = userTeamRepository.findByUserAndSeasonOrderByPosition(userRepository.findByUsername(user.getUsername()),season);
         userTeamRepository.deleteAll(userTeamToDelete);
     }
 
@@ -81,7 +81,7 @@ public class UserTeamService {
     }
 
     public Iterable<UserTeam> getList(User user,String season) {
-        return userTeamRepository.findByUserAndSeason(user,season);
+        return userTeamRepository.findByUserAndSeasonOrderByPosition(user,season);
     }
 
 }

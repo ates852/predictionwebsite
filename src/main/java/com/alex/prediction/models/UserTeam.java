@@ -6,13 +6,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "userteams")
+@Table(name = "user_teams")
 @SelectBeforeUpdate
 public class UserTeam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(name = "position")
     private int position;
     @Column(name = "name_of_team")
@@ -27,9 +26,10 @@ public class UserTeam implements Serializable {
     public UserTeam() {
     }
 
-    public UserTeam(int position, String nameOfTeam, User user) {
+    public UserTeam(int position, String nameOfTeam, String season, User user) {
         this.position = position;
         this.nameOfTeam = nameOfTeam;
+        this.season = season;
         this.user = user;
     }
 
