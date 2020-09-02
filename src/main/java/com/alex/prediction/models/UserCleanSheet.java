@@ -1,10 +1,14 @@
 package com.alex.prediction.models;
 
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "usercleansheet")
-public class UserCleanSheet {
+@Table(name = "user_cleansheet")
+@SelectBeforeUpdate
+public class UserCleanSheet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,8 +19,8 @@ public class UserCleanSheet {
     @Column(name = "season")
     private String season;
 
-    @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_id"), name = "user_id")
     private User user;
 
     public UserCleanSheet() {
@@ -29,11 +33,43 @@ public class UserCleanSheet {
         this.user = user;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getPosition() {
         return position;
     }
 
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public String getNameOfPlayer() {
         return nameOfPlayer;
+    }
+
+    public void setNameOfPlayer(String nameOfPlayer) {
+        this.nameOfPlayer = nameOfPlayer;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
