@@ -1,16 +1,22 @@
 package com.alex.prediction;
 
-import com.alex.prediction.models.User;
-import com.alex.prediction.models.UserTeam;
+import com.alex.prediction.models.*;
 import com.alex.prediction.repository.UserRepository;
 import com.alex.prediction.services.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -37,35 +43,33 @@ public class PredictionApplication {
                              UserAssistService userAssistService
     ) {
         return args -> {
-
-//            userService.saveUser(new User("Alex","nieco"));
-//            System.out.println(userTeamService.list(userService.findUserByName("Alex")));
 //             read JSON and load json
-//                      ObjectMapper mapper = new ObjectMapper();
-//            TypeReference<List<Team>> typeReference = new TypeReference<List<Team>>() {
-//            };
-//            OkHttpClient client = new OkHttpClient();
-//            Request request = new Request.Builder()
-//                    .url(url)
-//                    .get()
-//                    .addHeader("X-Auth-Token", token)
-//                    .build();
-//            try {
-//                Response response = client.newCall(request).execute();
-//                String jsonData = response.body().string();
-//                JSONObject jObject = new JSONObject(jsonData);
-//
-//                JSONArray standings = jObject.getJSONArray("standings");
-//                JSONArray table = standings.getJSONObject(0).getJSONArray("table");
-//
-//                List<Team> teams = mapper.readValue(table.toString(), typeReference);
-//
-//                teamService.save(teams);
-//
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//
+            ObjectMapper mapper = new ObjectMapper();
+            TypeReference<List<Team>> typeReference = new TypeReference<List<Team>>() {
+            };
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(url)
+                    .get()
+                    .addHeader("X-Auth-Token", token)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                String jsonData = response.body().string();
+                JSONObject jObject = new JSONObject(jsonData);
+
+                JSONArray standings = jObject.getJSONArray("standings");
+                JSONArray table = standings.getJSONObject(0).getJSONArray("table");
+
+                List<Team> teams = mapper.readValue(table.toString(), typeReference);
+
+                System.out.println(standings);
+                teamService.save(teams);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
 //            mapper = new ObjectMapper();
 //            TypeReference<List<Assist>> typeReferenceAssist = new TypeReference<List<Assist>>() {
 //            };
@@ -100,85 +104,6 @@ public class PredictionApplication {
 //            } catch (Exception e) {
 //                System.out.println(e.getMessage());
 //            }
-
-//
-//            User alex = userRepository.findByUsername("alex");
-//            System.out.println(alex.getEmail());
-//            System.out.println(alex.getPassword());
-//            System.out.println(alex.getUsername());
-
-//            UserTeam userTeam = new UserTeam(1,"Liverpool FC",alex);
-//            userTeamService.saveTeam(userTeam);
-
-//            User haglo = userService.findUserById(2);
-//            User jakub = userService.findUserById(3);
-//            User peto = userService.findUserById(4);
-
-//            UserAssist daco = new UserAssist(1, "Kevin De Bruyne", "2019/2020", alex);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(2, "Christian Eriksen", "2019/2020", alex);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(3, "Raheem Sterling", "2019/2020", alex);
-//            userAssistService.saveUserAssist(daco);
-//
-//            daco = new UserAssist(1, "Raheem Sterling", "2019/2020", jakub);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(2, "Kevin De Bruyne", "2019/2020", jakub);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(3, "Mohamed Salah", "2019/2020", jakub);
-//            userAssistService.saveUserAssist(daco);
-//
-//            daco = new UserAssist(1, "Raheem Sterling", "2019/2020", peto);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(2, "Bernardo Silva", "2019/2020", peto);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(3, "Mohamed Salah", "2019/2020", peto);
-//            userAssistService.saveUserAssist(daco);
-//
-//            daco = new UserAssist(1, "Kevin De Bruyne", "2019/2020", haglo);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(2, "Raheem Sterling", "2019/2020", haglo);
-//            userAssistService.saveUserAssist(daco);
-//            daco = new UserAssist(3, "Mohamed Salah", "2019/2020", haglo);
-//            userAssistService.saveUserAssist(daco);
-//
-//
-//            UserCleanSheet daco2 = new UserCleanSheet(1, "Ederson", "2019/2020", alex);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(2, "Alisson Becker", "2019/2020", alex);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(3, "Hugo Lloris", "2019/2020", alex);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//
-//            daco2 = new UserCleanSheet(1, "Ederson", "2019/2020", jakub);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(2, "Alisson Becker", "2019/2020", jakub);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(3, "Hugo Lloris", "2019/2020", jakub);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//
-//            daco2 = new UserCleanSheet(1, "Ederson", "2019/2020", peto);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(2, "Alisson Becker", "2019/2020", peto);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(3, "David de Gea", "2019/2020", peto);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//
-//            daco2 = new UserCleanSheet(1, "Alisson Becker", "2019/2020", haglo);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(2, "Ederson", "2019/2020", haglo);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//            daco2 = new UserCleanSheet(3, "David de Gea", "2019/2020", haglo);
-//            userCleanSheetService.saveUserCleanSheet(daco2);
-//
-//            Core core = new Core(userTeamService.getList(alex), teamService.getList(), scorerService.getList(), userScorerService.getList(alex),assistService.getList(),userAssistService.getList(alex),cleanSheetService.getList(),userCleanSheetService.getList(alex));;
-//            System.out.println("Alex:" + core.getResult());
-//            core = new Core(userTeamService.getList(haglo), teamService.getList(), scorerService.getList(), userScorerService.getList(haglo),assistService.getList(),userAssistService.getList(haglo),cleanSheetService.getList(),userCleanSheetService.getList(haglo));;
-//            System.out.println("Haglo:" + core.getResult());
-//            core = new Core(userTeamService.getList(jakub), teamService.getList(), scorerService.getList(), userScorerService.getList(jakub),assistService.getList(),userAssistService.getList(jakub),cleanSheetService.getList(),userCleanSheetService.getList(jakub));;
-//            System.out.println("Jakub:" + core.getResult());
-//            core = new Core(userTeamService.getList(peto), teamService.getList(), scorerService.getList(), userScorerService.getList(peto),assistService.getList(),userAssistService.getList(peto),cleanSheetService.getList(),userCleanSheetService.getList(peto));;
-//            System.out.println("Peter:" + core.getResult());
         };
     }
 }

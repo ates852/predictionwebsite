@@ -1,6 +1,5 @@
 package com.alex.prediction.controller;
 
-import com.alex.prediction.models.User;
 import com.alex.prediction.models.UserScorer;
 import com.alex.prediction.repository.UserRepository;
 import com.alex.prediction.services.UserScorerService;
@@ -22,10 +21,10 @@ public class UserScorerController {
     private UserRepository userRepository;
 
     //Get users team standings
-    @GetMapping("/list/{name}/{season}")
+    @GetMapping("/list")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public Iterable<UserScorer> list(@PathVariable String name, @PathVariable String season) {
-        return userScorerService.getList(userRepository.findByUsername(name),season);
+    public Iterable<UserScorer> list(@RequestParam(name = "username") String username, @RequestParam(name = "season") String season) {
+        return userScorerService.getList(userRepository.findByUsername(username),season);
     }
 
     @PostMapping("/saveScorer")
@@ -42,11 +41,12 @@ public class UserScorerController {
         return new ResponseEntity<>(userScorerListToReturn, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteScorers/{season}")
+    @DeleteMapping("/deleteScorers")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public void deleteScorers(@RequestBody User user, @PathVariable String season) {
-        userScorerService.deleteListOfScorer(user,season);
+    public void deleteScorers(@RequestParam(name = "username") String username, @RequestParam(name = "season") String season) {
+        userScorerService.deleteListOfScorer(userRepository.findByUsername(username),season);
     }
+
     @DeleteMapping("/deleteScorer")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public void deleteScorer(@RequestBody UserScorer userScorer) {

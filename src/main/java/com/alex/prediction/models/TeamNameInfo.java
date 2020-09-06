@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.persistence.Embeddable;
 
-@Data
 @AllArgsConstructor
 @Embeddable
 public class TeamNameInfo {
@@ -22,5 +21,21 @@ public class TeamNameInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCrestUrl() {
+        return crestUrl;
+    }
+
+    public void setCrestUrl(String crestUrl) {
+        this.crestUrl = crestUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

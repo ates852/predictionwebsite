@@ -5,44 +5,15 @@ import com.alex.prediction.models.*;
 import java.util.List;
 
 public class Core {
-    List<UserTeam> userTeams;
-    List<Team> teams;
-    List<Scorer> scorers;
-    List<UserScorer> userScorers;
-    List<Assist> assists;
-    List<UserAssist> userAssists;
-    List<CleanSheet> cleanSheets;
-    List<UserCleanSheet> userCleanSheets;
-
+    User user;
 
     protected int result = 0;
 
-    public Core(List<UserTeam> userTeams,
-                List<Team> teams,
-                List<Scorer> scorers,
-                List<UserScorer> userScorers,
-                List<Assist> assists,
-                List<UserAssist> userAssists,
-                List<CleanSheet> cleanSheets,
-                List<UserCleanSheet> userCleanSheets) {
-        this.userTeams = userTeams;
-        this.teams = teams;
-        this.scorers = scorers;
-        this.userScorers = userScorers;
-        this.assists = assists;
-        this.userAssists = userAssists;
-        this.cleanSheets = cleanSheets;
-        this.userCleanSheets = userCleanSheets;
-        calculateStandings();
-        System.out.println("standings"+result);
-        calculateTopScorer();
-        System.out.println("standings"+result);
-        calculateTopAssist();
-        System.out.println("standings"+result);
-        calculateTopCleanSheet();
+    public Core(User user) {
+        this.user = user;
     }
 
-    public void calculateStandings() {
+    public int calculateStandings(List<UserTeam> userTeams, List<Team> teams) {
         for (int i = 0; i < userTeams.size(); i++) {
             String usersStandingName = userTeams.get(i).getNameOfTeam();
             if (usersStandingName.equalsIgnoreCase(teams.get(i).getTeamName())) {
@@ -73,9 +44,10 @@ public class Core {
                 result += 5;
             }
         }
+        return result;
     }
 
-    public void calculateTopScorer() {
+    public int calculateTopScorer(List<UserScorer> userScorers, List<Scorer> scorers) {
         for (int i = 0; i < 3; i++) {
             String usersPlayerName = userScorers.get(i).getNameOfPlayer();
             for (int x = 0; x < 3; x++) {
@@ -88,9 +60,10 @@ public class Core {
                 }
             }
         }
+        return result;
     }
 
-    public void calculateTopAssist() {
+    public int calculateTopAssist(List<UserAssist> userAssists, List<Assist> assists) {
         for (int i = 0; i < 3; i++) {
             String usersPlayerName = userAssists.get(i).getNameOfPlayer();
             for (int x = 0; x < 3; x++) {
@@ -103,9 +76,10 @@ public class Core {
                 }
             }
         }
+        return result;
     }
 
-    public void calculateTopCleanSheet() {
+    public int calculateTopCleanSheet(List<UserCleanSheet> userCleanSheets, List<CleanSheet> cleanSheets) {
         for (int i = 0; i < 3; i++) {
             String usersPlayerName = userCleanSheets.get(i).getNameOfPlayer();
             for (int x = 0; x < 3; x++) {
@@ -118,10 +92,6 @@ public class Core {
                 }
             }
         }
-    }
-
-    public int getResult() {
         return result;
     }
-
 }

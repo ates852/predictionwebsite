@@ -15,14 +15,9 @@ public class TeamController {
     private TeamService teamService;
 
     @GetMapping("/list")
-    public Iterable<Team> list() {
-        return teamService.list();
-    }
-
-    @GetMapping("/list/{season}")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public Iterable<Team> list(@PathVariable String season) {
-        return teamService.list();
+    public Iterable<Team> list(@RequestParam String season) {
+        return teamService.getList();
     }
 
 }

@@ -70,7 +70,7 @@ public class UserScorerService {
     }
 
     public void deleteListOfScorer(User user,String season) {
-        Iterable<UserScorer> userScorersToDelete = userScorerRepository.findByUserAndSeasonOrderByPosition(userRepository.findByUsername(user.getUsername()),season);
+        Iterable<UserScorer> userScorersToDelete = userScorerRepository.findByUserAndSeasonOrderByPosition(user,season);
         userScorerRepository.deleteAll(userScorersToDelete);
     }
 

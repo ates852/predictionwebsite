@@ -69,7 +69,7 @@ public class UserAssistService {
     }
 
     public void deleteListOfPlayers(User user, String season) {
-        Iterable<UserAssist> userPlayersToDelete = userAssistRepository.findByUserAndSeasonOrderByPosition(userRepository.findByUsername(user.getUsername()), season);
+        Iterable<UserAssist> userPlayersToDelete = userAssistRepository.findByUserAndSeasonOrderByPosition(user, season);
         userAssistRepository.deleteAll(userPlayersToDelete);
     }
 

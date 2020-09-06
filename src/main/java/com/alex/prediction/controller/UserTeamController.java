@@ -23,15 +23,15 @@ public class UserTeamController {
     private UserRepository userRepository;
 
     //Get users team standings
-    @GetMapping("/list/{name}/{season}")
+    @GetMapping("/list")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public Iterable<UserTeam> list(@PathVariable String name,@PathVariable String season) {
-        return userTeamService.getList(userRepository.findByUsername(name),season);
+    public Iterable<UserTeam> list(@RequestParam(name = "username") String username, @RequestParam(name = "season") String season) {
+        return userTeamService.getList(userRepository.findByUsername(username),season);
     }
 
     @PostMapping("/saveTeam")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public ResponseEntity<UserTeam> addTeam(@RequestBody UserTeam userTeam) {
+    public ResponseEntity<UserTeam> addTeam(@RequestBody UserTeam userTeam ) {
         UserTeam userTeam1 = userTeamService.saveTeam(userTeam);
         return new ResponseEntity<>(userTeam1, HttpStatus.OK);
     }
@@ -44,9 +44,9 @@ public class UserTeamController {
     }
 
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    @DeleteMapping("/deleteTeams/{season}")
-    public void deleteTeams(@RequestBody User user,@PathVariable String season) {
-        userTeamService.deleteListOfTeams(user,season);
+    @DeleteMapping("/deleteTeams")
+    public void deleteTeams(@RequestParam(name = "username") String username ,@RequestParam(name = "season") String season) {
+        userTeamService.deleteListOfTeams(userRepository.findByUsername(username),season);
     }
 
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")

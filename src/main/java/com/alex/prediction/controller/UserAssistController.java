@@ -23,10 +23,10 @@ public class UserAssistController {
     private UserRepository userRepository;
 
     //Get users team standings
-    @GetMapping("/list/{name}/{season}")
+    @GetMapping("/list")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public Iterable<UserAssist> list(@PathVariable String name, @PathVariable String season) {
-        return userAssistService.getList(userRepository.findByUsername(name),season);
+    public Iterable<UserAssist> list(@RequestParam(name = "username") String username, @RequestParam(name = "season") String season) {
+        return userAssistService.getList(userRepository.findByUsername(username),season);
     }
 
     @PostMapping("/savePlayer")
@@ -43,10 +43,10 @@ public class UserAssistController {
         return new ResponseEntity<>(userPlayerListToReturn, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletePlayers/{season}")
+    @DeleteMapping("/deletePlayers")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
-    public void deletePlayers(@RequestBody User user, @PathVariable String season) {
-        userAssistService.deleteListOfPlayers(user,season);
+    public void deletePlayers(@RequestParam(name = "username") String username, @RequestParam(name = "season") String season) {
+        userAssistService.deleteListOfPlayers(userRepository.findByUsername(username),season);
     }
     @DeleteMapping("/deletePlayer")
     @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")

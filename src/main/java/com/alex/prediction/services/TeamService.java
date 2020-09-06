@@ -13,7 +13,7 @@ public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public Iterable<Team> list() {
+    public Iterable<Team> getList() {
         return teamRepository.findAll();
     }
 
