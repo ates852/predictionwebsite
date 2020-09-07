@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CleanSheetRepository extends JpaRepository<CleanSheet, Long> {
-    List<CleanSheet> findAllByPosition(String position);
+    List<CleanSheet> findAllByPositionAndSeason(String position,String season);
 }

@@ -2,24 +2,18 @@ package com.alex.prediction.services;
 
 import com.alex.prediction.models.CleanSheet;
 import com.alex.prediction.repository.CleanSheetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CleanSheetService {
+    @Autowired
     private CleanSheetRepository cleanSheetRepository;
 
-    public CleanSheetService(CleanSheetRepository cleanSheetRepository) {
-        this.cleanSheetRepository = cleanSheetRepository;
-    }
-
-    public Iterable<CleanSheet> list() {
-        return cleanSheetRepository.findAll();
-    }
-
-    public List<CleanSheet> getList() {
-        return cleanSheetRepository.findAllByPosition("Goalkeeper");
+    public Iterable<CleanSheet> getList(String season) {
+        return cleanSheetRepository.findAllByPositionAndSeason("Goalkeeper",season);
     }
 
     public CleanSheet save(CleanSheet cleanSheet) {

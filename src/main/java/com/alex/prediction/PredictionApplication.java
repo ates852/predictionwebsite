@@ -1,7 +1,6 @@
 package com.alex.prediction;
 
 import com.alex.prediction.models.*;
-import com.alex.prediction.repository.UserRepository;
 import com.alex.prediction.services.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,12 +34,7 @@ public class PredictionApplication {
     CommandLineRunner runner(CleanSheetService cleanSheetService,
                              AssistService assistService,
                              ScorerService scorerService,
-                             TeamService teamService,
-                             UserTeamService userTeamService,
-                             UserRepository userRepository,
-                             UserScorerService userScorerService,
-                             UserCleanSheetService userCleanSheetService,
-                             UserAssistService userAssistService
+                             TeamService teamService
     ) {
         return args -> {
 //             read JSON and load json
@@ -70,40 +64,40 @@ public class PredictionApplication {
                 System.out.println(e.getMessage());
             }
 
-//            mapper = new ObjectMapper();
-//            TypeReference<List<Assist>> typeReferenceAssist = new TypeReference<List<Assist>>() {
-//            };
-//            TypeReference<List<Scorer>> typeReferenceScorers = new TypeReference<List<Scorer>>() {
-//            };
-//            TypeReference<List<CleanSheet>> typeReferenceCleanSheet = new TypeReference<List<CleanSheet>>() {
-//            };
-//            client = new OkHttpClient();
-//            request = new Request.Builder()
-//                    .url(url3)
-//                    .get()
-//                    .build();
-//            try {
-//                Response response = client.newCall(request).execute();
-//                String jsonData = response.body().string();
-//                JSONObject jObject = new JSONObject(jsonData);
-//
-//                JSONObject data = jObject.getJSONObject("data");
-//                JSONArray topAssists = data.getJSONArray("top_assists");
-//                JSONArray topScorers = data.getJSONArray("top_scorers");
-//                JSONArray topCleanSheet = data.getJSONArray("top_clean_sheets");
-//
-//                List<Assist> assists = mapper.readValue(topAssists.toString(), typeReferenceAssist);
-//                assistService.save(assists);
-//
-//                List<Scorer> scorers = mapper.readValue(topScorers.toString(), typeReferenceScorers);
-//                scorerService.save(scorers);
-//
-//                List<CleanSheet> cleanSheets = mapper.readValue(topCleanSheet.toString(), typeReferenceCleanSheet);
-//                cleanSheetService.save(cleanSheets);
-//
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
+            mapper = new ObjectMapper();
+            TypeReference<List<Assist>> typeReferenceAssist = new TypeReference<List<Assist>>() {
+            };
+            TypeReference<List<Scorer>> typeReferenceScorers = new TypeReference<List<Scorer>>() {
+            };
+            TypeReference<List<CleanSheet>> typeReferenceCleanSheet = new TypeReference<List<CleanSheet>>() {
+            };
+            client = new OkHttpClient();
+            request = new Request.Builder()
+                    .url(url3)
+                    .get()
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                String jsonData = response.body().string();
+                JSONObject jObject = new JSONObject(jsonData);
+
+                JSONObject data = jObject.getJSONObject("data");
+                JSONArray topAssists = data.getJSONArray("top_assists");
+                JSONArray topScorers = data.getJSONArray("top_scorers");
+                JSONArray topCleanSheet = data.getJSONArray("top_clean_sheets");
+
+                List<Assist> assists = mapper.readValue(topAssists.toString(), typeReferenceAssist);
+                assistService.save(assists);
+
+                List<Scorer> scorers = mapper.readValue(topScorers.toString(), typeReferenceScorers);
+                scorerService.save(scorers);
+
+                List<CleanSheet> cleanSheets = mapper.readValue(topCleanSheet.toString(), typeReferenceCleanSheet);
+                cleanSheetService.save(cleanSheets);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         };
     }
 }

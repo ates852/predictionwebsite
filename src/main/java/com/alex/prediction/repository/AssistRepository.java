@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AssistRepository extends JpaRepository<Assist, Long> {
-    List<Assist> findAll();
+    List<Assist> findBySeason(String season);
 }

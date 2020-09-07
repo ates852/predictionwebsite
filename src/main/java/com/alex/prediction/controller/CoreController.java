@@ -55,7 +55,7 @@ public class CoreController {
         List<UserScorer> userScorers = new ArrayList<>();
         userScorerService.getList(userToCalculate, season).forEach(userScorers::add);
         List<Scorer> scorers = new ArrayList<>();
-        scorerService.getList().forEach(scorers::add);
+        scorerService.getList(season).forEach(scorers::add);
         return userPointsToCalculate.calculateTopScorer(userScorers, scorers);
     }
 
@@ -67,7 +67,7 @@ public class CoreController {
         List<UserAssist> userAssists = new ArrayList<>();
         userAssistService.getList(userToCalculate, season).forEach(userAssists::add);
         List<Assist> assists = new ArrayList<>();
-        assistService.getList().forEach(assists::add);
+        assistService.getList(season).forEach(assists::add);
         return userPointsToCalculate.calculateTopAssist(userAssists, assists);
     }
 
@@ -79,7 +79,7 @@ public class CoreController {
         List<UserCleanSheet> userCleanSheets = new ArrayList<>();
         userCleanSheetService.getList(userToCalculate, season).forEach(userCleanSheets::add);
         List<CleanSheet> cleanSheets = new ArrayList<>();
-        cleanSheetService.getList().forEach(cleanSheets::add);
+        cleanSheetService.getList(season).forEach(cleanSheets::add);
         return userPointsToCalculate.calculateTopCleanSheet(userCleanSheets, cleanSheets);
     }
 
